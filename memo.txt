@@ -1,4 +1,4 @@
-
+**********어휘사전************
 https://romanticq.github.io/머신러닝/text-mining-tech2/
 https://statkclee.github.io/nlp2/nlp-sentiment.html#AFINN-%EC%96%B4%ED%9C%98%EC%82%AC%EC%A0%84
 
@@ -14,6 +14,12 @@ KONLPY:
 KOSAC:  개발자의 동의 얻어 사용 가능
         https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE02217219&language=ko_KR
 EmoLex: 105 개국 언어 감성사전 제공
+
+
+********모델***********
+-optimizer
+https://ganghee-lee.tistory.com/24
+
 
 
 
