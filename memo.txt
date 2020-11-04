@@ -13,7 +13,9 @@ BingLiuLexicon: 긍부정.점수X 6,800개의 감성어. 지속적인 업데이�
 SentiwordNet: 긍부정중립. NLTK패키지
 
 -한국어
+KONLPY:
 KOSAC:  개발자의 동의 얻어 사용 가능
+        https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE02217219&language=ko_KR
 EmoLex: 105 개국 언어 감성사전 제공
 
 
