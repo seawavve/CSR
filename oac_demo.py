@@ -69,8 +69,9 @@ max_len=2000
 X_train=pad_sequences(X_train,maxlen=max_len)
 X_test=pad_sequences(X_test,maxlen=max_len)
 
-#model의 레이어,Hparameter,optimizer를 바꿔서 실험할 수 있음
+#model의 레이어,Hyper-param,optimizer를 바꿔서 실험할 수 있음
 #학습그래프그리기
+#EarlyStopping,ModelCheckPoint기법 적용하기
 model=Sequential()
 model.add(Embedding(max_words,100))
 model.add(LSTM(128))
