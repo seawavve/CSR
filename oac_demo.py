@@ -70,6 +70,7 @@ X_train=pad_sequences(X_train,maxlen=max_len)
 X_test=pad_sequences(X_test,maxlen=max_len)
 
 #model의 레이어,Hparameter,optimizer를 바꿔서 실험할 수 있음
+#학습그래프그리기
 model=Sequential()
 model.add(Embedding(max_words,100))
 model.add(LSTM(128))
@@ -81,6 +82,7 @@ history=model.fit(X_train,Y_train,epochs=10,batch_size=10,validation_split=0.1)
 print('accuracy:{:.2f}'.format(model.evaluate(X_test,Y_test)[1]))
 
 ###
+#예측된 값과 실제 값 비교
 import numpy as np
 predict=model.predict(X_test)
 predict_labels=np.argmax(predict,axis=1)
