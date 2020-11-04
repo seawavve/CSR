@@ -1,5 +1,4 @@
 **********어휘사전************
-https://romanticq.github.io/머신러닝/text-mining-tech2/
 https://statkclee.github.io/nlp2/nlp-sentiment.html#AFINN-%EC%96%B4%ED%9C%98%EC%82%AC%EC%A0%84
 
 
@@ -16,11 +15,20 @@ KOSAC:  개발자의 동의 얻어 사용 가능
 EmoLex: 105 개국 언어 감성사전 제공
 
 
+
 ********모델***********
+-기초
+https://ganghee-lee.tistory.com/38?category=841638
 -optimizer
 https://ganghee-lee.tistory.com/24
 
 
 
 
+*********감정분석********
 
+https://romanticq.github.io/머신러닝/text-mining-tech2/
+https://somjang.tistory.com/entry/Keras%EA%B8%B0%EC%82%AC-%EC%A0%9C%EB%AA%A9%EC%9D%84-%EA%B0%80%EC%A7%80%EA%B3%A0-%EA%B8%8D%EC%A0%95-%EB%B6%80%EC%A0%95-%EC%A4%91%EB%A6%BD-%EB%B6%84%EB%A5%98%ED%95%98%EB%8A%94-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EA%B8%B0
+https://devtimes.com/nlp-korea-movie-review
+https://buillee.tistory.com/946
+https://statkclee.github.io/nlp2/nlp-sentiment.html#AFINN-%EC%96%B4%ED%9C%98%EC%82%AC%EC%A0%84
