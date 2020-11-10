@@ -35,3 +35,5 @@ https://somjang.tistory.com/entry/Keras%EA%B8%B0%EC%82%AC-%EC%A0%9C%EB%AA%A9%EC%
 https://devtimes.com/nlp-korea-movie-review
 https://buillee.tistory.com/946
 https://statkclee.github.io/nlp2/nlp-sentiment.html#AFINN-%EC%96%B4%ED%9C%98%EC%82%AC%EC%A0%84
+
+***워드클라우드**
