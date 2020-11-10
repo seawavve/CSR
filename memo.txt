@@ -17,6 +17,7 @@ Kosac:
 
 *****형태소분석***
 konlpy모듈 사용
+https://konlpy-ko.readthedocs.io/ko/v0.4.3/
 
 
 ********모델***********
