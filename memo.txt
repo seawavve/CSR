@@ -38,4 +38,6 @@ https://buillee.tistory.com/946
 https://statkclee.github.io/nlp2/nlp-sentiment.html#AFINN-%EC%96%B4%ED%9C%98%EC%82%AC%EC%A0%84
 https://airealize.tistory.com/9
 
-***워드클라우드**
+***시각화**
+https://m.blog.naver.com/almadenkorea/221944912651
+
