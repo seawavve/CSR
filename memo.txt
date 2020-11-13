@@ -40,4 +40,4 @@ https://airealize.tistory.com/9
 
 ***시각화**
 https://m.blog.naver.com/almadenkorea/221944912651
-
+https://cmdlinetips.com/2019/02/how-to-make-histogram-in-python-with-pandas-and-seaborn/
