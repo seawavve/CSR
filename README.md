@@ -1,5 +1,5 @@
 # OAC
-Objectivity Analysis of Corona Articles Using News Crawling
+:bar_chart:Objectivity Analysis of Corona Articles Using News Crawling
 
 Team MGHH
 
