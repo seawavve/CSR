@@ -27,7 +27,7 @@ Team 막강하니
 
 
 # Visualization    
-Plotly, Matplot, Seaborn 라이브러리를 활용하여 확진자, 완치자, 치료중환자, 사망자 분포도를 그래프로 만듭니다. 감정 분석에 따른 Histogram 또는 Polar Chart로 시각화하여 한 해의 환자 추이를 다음과 같이 그려볼 수 있습니다.    
+Plotly, Matplot, Seaborn 라이브러리를 활용하여 확진자, 완치자, 치료중환자, 사망자 분포도를 그래프로 만듭니다. 감정 분석에 따른 Histogram 또는 Polar Chart로 시각화하여 한 해의 환자 추이를 그려볼 수 있습니다.    
 한 시기에 특정 감정이 도드라지는 부분이 있다면 Word Cloud로 어떤 요인이 감정을 가장 크게 이끌어냈는지 파악하여 UI로 구성합니다.  
 
 # Ending  
