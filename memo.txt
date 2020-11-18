@@ -12,6 +12,7 @@ SentiwordNet: 긍부정중립. NLTK패키지
 KOSAC:  개발자의 동의 얻어 사용 가능
         https://www.dbpia.co.kr/Journal/articleDetail?nodeId=NODE02217219&language=ko_KR
 EmoLex: 105 개국 언어 감성사전 제공
+        http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm
 Kosac:
         https://github.com/mrlee23/KoreanSentimentAnalyzer
 
@@ -19,6 +20,8 @@ Kosac:
 konlpy
 https://konlpy-ko.readthedocs.io/ko/v0.4.3/
 https://mr-doosun.tistory.com/22
+
+
 
 
 ********모델***********
