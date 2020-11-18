@@ -16,8 +16,9 @@ Kosac:
         https://github.com/mrlee23/KoreanSentimentAnalyzer
 
 *****형태소분석***
-konlpy모듈 사용
+konlpy
 https://konlpy-ko.readthedocs.io/ko/v0.4.3/
+https://mr-doosun.tistory.com/22
 
 
 ********모델***********
