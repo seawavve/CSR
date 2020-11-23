@@ -6,12 +6,12 @@
 
 #dataset에서 제공하는 키워드로 2감정,8감정 분석
 # Run Time: min
-get_ipython().system(' pip install tqdm')
-
 from tqdm import tqdm
 import pandas as pd
-contents = pd.read_csv('./NewsResult_20200806-20201106.csv',index_col=0)
-contents=contents['본문']
+
+raw_data = pd.read_csv('./NewsResult_20200806-20201106.csv',index_col=0)
+dataset = pd.DataFrame({'본문': raw_data['본문'],'키워드':raw_data['키워드']})
+dataset = dataset.reset_index(drop = True)
 
 #텍스트 전처리
 import re
@@ -34,13 +34,9 @@ def clean_str(string):
 
   return string.lower()
 
-#인덱스|본문 dataset 생성
-contents = contents.reset_index(drop = True)
+#인덱스|본문 전처리
 for idx in contents.index:
-    contents[idx] = clean_str(contents[idx])
-contents.columns=['idx','content']
-contents=contents.to_frame()
-dataset=contents
+    dataset['본문'][idx] = clean_str(dataset['본문'][idx])
 
 #긍부정키를 따로 나눔
 lex2 = pd.read_csv('./preprocessed_lexicon2.csv',index_col=0)
@@ -62,13 +58,14 @@ Hist['Frequency'] = 0
 
 res=[0,0,0] #Positive,Negative,Moderative
 c = 0
+
 for i in tqdm(range(len(dataset))):   # 이거 잘 돌아가는지 확인 못함 안되면  range(len(dataset)) or range(20)이렇게 바꿔
     text=''
     text=dataset.loc[i,'키워드']
     pos=0
     neg=0
     for j in text.split(','): #형태소가 사전과 일치하고 긍부정 중 1이 있으면 count
-        c = 0
+        c = 0 # 데이터가 제대로 count했는지 확인하는 부분
         if j in pos_keys:
             pos+=1
             c = 1
@@ -81,12 +78,21 @@ for i in tqdm(range(len(dataset))):   # 이거 잘 돌아가는지 확인 못함
     dataset.loc[i,'neg_val'] = neg
     if pos>neg:
         dataset.loc[i,'pos_neg']=1
+        if neg == 0:
+            dataset.loc[i,'P&N RATIO'] = pos
+        else:
+            dataset.loc[i,'P&N RATIO'] = pos/neg
         res[0]+=1
     elif neg>pos:
         dataset.loc[i,'pos_neg']=-1
+        if pos == 0:
+            dataset.loc[i,'P&N RATIO'] = neg
+        else:
+            dataset.loc[i,'P&N RATIO'] = -(neg/pos)
         res[1]+=1
     else:#중립
         dataset.loc[i,'pos_neg']=0
+        dataset.loc[i,'P&N RATIO'] = 0
         res[2]+=1
 print(res)
 
@@ -113,16 +119,3 @@ Negative_Hist.to_csv("Negative_Keyword.csv", mode='w',encoding='utf-8')
 Moderative_Hist.to_csv("Moderative_Keyword.csv", mode='w',encoding='utf-8')
 dataset.to_csv("dataset_pos_neg.csv",mode='w',encoding='utf-8')
 dataset.to_csv("dataset_pos_neg(UTF-8-SIG).csv",mode='w',encoding='utf-8-sig')
-
-
-# In[5]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
