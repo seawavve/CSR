@@ -1,15 +1,17 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[9]:
 
 
-#전처리를 거친 뉴스본문으로 2감정, 8감정 분석
-# Run Time: ? min 
-
+#dataset에서 제공하는 키워드로 2감정,8감정 분석
+# Run Time: min
+from tqdm import tqdm
 import pandas as pd
-contents = pd.read_csv('./NewsResult_20200806-20201106.csv',index_col=0)
-contents=contents['본문']
+
+raw_data = pd.read_csv('./NewsResult_20200806-20201106.csv',index_col=0)
+dataset = pd.DataFrame({'본문': raw_data['본문'],'키워드':raw_data['키워드']})
+dataset = dataset.reset_index(drop = True)
 
 #텍스트 전처리
 import re
@@ -32,60 +34,73 @@ def clean_str(string):
 
   return string.lower()
 
-#인덱스|본문 dataset 생성
-contents = contents.reset_index(drop = True)
+#인덱스|본문 전처리
 for idx in contents.index:
-    contents[idx] = clean_str(contents[idx])
-contents.columns=['idx','content']
-contents=contents.to_frame()
-dataset=contents
+    dataset['본문'][idx] = clean_str(dataset['본문'][idx])
 
-#2감정 분석
+#긍부정키를 따로 나눔
 lex2 = pd.read_csv('./preprocessed_lexicon2.csv',index_col=0)
+pos_key_cheack = lex2['Positive']  == 1
+neg_key_cheack = lex2['Negative']  == 1
+
+pos_keys = lex2[pos_key_cheack].index
+neg_keys = lex2[neg_key_cheack].index
+mod_keys = lex2[~pos_key_cheack & ~neg_key_cheack].index
+
+
 from konlpy.tag import Okt
+from tqdm import tqdm
 okt=Okt()
 
+##추가 코드 Histogram
 Hist = lex2.copy()
 Hist['Frequency'] = 0
 
 res=[0,0,0] #Positive,Negative,Moderative
-pre_texts=[] #다음 감정 학습을 위해 2차원 배열로 전처리된 형태소를 보관
-for i in range(20):   #  range(len(dataset)) or range(20)
+pre_texts=[]
+c = 0
+
+for i in tqdm(range(len(dataset))):   # 이거 잘 돌아가는지 확인 못함 안되면  range(len(dataset)) or range(20)이렇게 바꿔
+    
     text=''
     text=dataset.loc[i,'본문']
     pre_text=okt.morphs(text) #형태소로 자르기
     pre_texts.append(pre_text)
+    
     pos=0
     neg=0
-    for j in range(len(pre_text)): #형태소가 사전과 일치하고 긍부정 중 1이 있으면 count
-        for k in range(len(lex2)):
-            if pre_text[j]==str(lex2.index[k]):
-                if lex2.iloc[k,0]==1:
-                    pos+=1
-                if lex2.iloc[k,1]==1:
-                    neg+=1
-                Hist.iloc[k,2] += 1
+    for j in pre_text: #형태소가 사전과 일치하고 긍부정 중 1이 있으면 count
+        c = 0
+        if j in pos_keys:
+            pos+=1
+            c = 1
+            Hist.loc[j]['Frequency'] += 1
+        if j in neg_keys:
+            neg+=1
+            if c == 0:
+                Hist.loc[j]['Frequency'] += 1
+    dataset.loc[i,'pos_val'] = pos
+    dataset.loc[i,'neg_val'] = neg
+    
     if pos>neg:
         dataset.loc[i,'pos_neg']=1
+        if neg == 0:
+            dataset.loc[i,'P&N RATIO'] = pos
+        else:
+            dataset.loc[i,'P&N RATIO'] = pos/neg
         res[0]+=1
     elif neg>pos:
         dataset.loc[i,'pos_neg']=-1
+        if pos == 0:
+            dataset.loc[i,'P&N RATIO'] = neg
+        else:
+            dataset.loc[i,'P&N RATIO'] = -(neg/pos)
         res[1]+=1
     else:#중립
         dataset.loc[i,'pos_neg']=0
+        dataset.loc[i,'P&N RATIO'] = 0
         res[2]+=1
-#print(res)
-
-#histogram
-import matplotlib.pyplot as plt
-import numpy as np
-x=np.arange(3)
-y=res
-plt.bar(x,y)
-plt.xticks(x,['Positive','Negative','Moderative'])
-plt.xlabel('Emotional Distribution')
-plt.ylabel('Amount of News')
-plt.show()
+print(res)
 
 # 키워드 히스토그램 추출
 Valid_Hist_cheack = Hist['Frequency'] > 1
@@ -108,64 +123,5 @@ Valid_Hist.to_csv("Keyword.csv", mode='w',encoding='utf-8')
 Positive_Hist.to_csv("Positive_Keyword.csv", mode='w',encoding='utf-8')
 Negative_Hist.to_csv("Negative_Keyword.csv", mode='w',encoding='utf-8')
 Moderative_Hist.to_csv("Moderative_Keyword.csv", mode='w',encoding='utf-8')
-
-
-# In[2]:
-
-
-#8감정 분석
-#2감정을 쓰고 남은 data를 이용해 더 적은시간으로 돌아가도록 설정했습니다.
-#그러므로, 꼭 2감정 학습을 돌린 이후에 8감정을 실행하시길 바랍니다.
-
-lex8 = pd.read_csv('./preprocessed_lexicon8.csv',index_col=0)
-res=[0,0,0,0,0,0,0,0,0] #Anger,Anticipation,Disgust,Fear,Joy,Sadness,Surprise,Trust,Moderation | 전체 데이터의 8감정+Moderation
-for i in range(20):   # range(len(dataset)) or range(20)
-    pre_text=pre_texts[i]
-    emo8=[0,0,0,0,0,0,0,0] #뉴스 하나의 8감정+Moderation
-
-    for j in range(len(pre_text)): #형태소가 사전과 일치하고 8감정 중 1이 있으면 count
-        for k in range(len(lex8)):
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,0]==1:
-                emo8[0]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,1]==1:
-                emo8[1]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,2]==1:
-                emo8[2]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,3]==1:
-                emo8[3]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,4]==1:
-                emo8[4]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,5]==1:
-                emo8[5]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,6]==1:
-                emo8[6]+=1
-            if pre_text[j]==str(lex8.index[k]) and lex8.iloc[k,7]==1:
-                emo8[7]+=1
-    if emo8.count(0)==8:
-        res[8]+=1
-    else:
-        news_emo=emo8.index(max(emo8))
-        for r in range(8):
-            if news_emo==r:res[r]+=1
-#print(res)
-
-#histogram
-import matplotlib.pyplot as plt
-import numpy as np
-x=np.arange(9)
-y=res
-ax=plt.subplot(1,1,1)
-plt.bar(x,y)
-plt.xticks(x,['Anger','Anticipation','Disgust','Fear','Joy','Sadness','Surprise','Trust','Moderation'])
-for label in ax.xaxis.get_ticklabels():
-    label.set_rotation(45)
-plt.xlabel('Emotional Distribution')
-plt.ylabel('Amount of News')
-plt.show()
-
-
-# In[ ]:
-
-
-
-
+dataset.to_csv("dataset_pos_neg.csv",mode='w',encoding='utf-8')
+dataset.to_csv("dataset_pos_neg(UTF-8-SIG).csv",mode='w',encoding='utf-8-sig')
