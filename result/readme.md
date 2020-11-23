@@ -5,4 +5,5 @@
    
 - `preprocessedNews_emo2_emo8`전처리를 거친 뉴스본문으로 2감정, 8감정 분석| 2감정 키워드 추출
 - `DatasetKeyword_emo2_emo8.py`dataset에서 제공하는 키워드로 2감정,8감정 분석| 2감정 키워드 추출
-- 코로나 확진자 추이 그래프  
+- `covid_confimation_trend_data.py`코로나 확진자 추이 크롤링
+ ㄴ 결과물`covid_confimation_trend_data.csv`
