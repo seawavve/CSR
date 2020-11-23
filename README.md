@@ -38,7 +38,7 @@ Plotly, Matplot, Seaborn 라이브러리를 활용하여 확진자, 완치자, �
 
 # Built with
 Team 막강하니    
-막강 @  
+막강 @mintai09
  - 2감정 키워드추출
  - 효율 개선
 
