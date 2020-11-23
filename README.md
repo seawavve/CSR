@@ -40,6 +40,7 @@ Plotly, Matplot, Seaborn 라이브러리를 활용하여 확진자, 완치자, �
 Team 막강하니    
 막강 @  
  - 2감정 키워드추출
+ - 효율 개선
 
 하니 @seawavve  
  - 아이디어 및 구상  
