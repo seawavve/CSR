@@ -27,7 +27,8 @@
 +긍부정분석  
 +8감정(분노, 기쁨 등)분석  
 +객관성주관성분석   
-
++ Web Crawling    
+ 인증키를 받아 공공API 데이터를 가져와 분석합니다.  
 
 # Visualization    
 Plotly, Matplot, Seaborn 라이브러리를 활용하여 확진자, 완치자, 치료중환자, 사망자 분포도를 그래프로 만듭니다. 감정 분석에 따른 Histogram 또는 Polar Chart로 시각화하여 한 해의 환자 추이를 그립니다.  
