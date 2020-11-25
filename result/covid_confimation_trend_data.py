@@ -80,6 +80,10 @@ examCnt_list = sum(examCnt_list, [])
 careCnt_list = sum(careCnt_list, [])
 resnegCnt_list = sum(resnegCnt_list, [])
 accdefRate_list = sum(accdefRate_list, [])
+deathCnt_list=list(map(int,deathCnt_list))
+#누적 제거
+for i in range(94):
+    deathCnt_list[i]-=deathCnt_list[i+1]
 
 result=[]
 for stateDt,decideCnt,clearCnt,deathCnt,examCnt,careCnt,resnegCnt,accdefRate in zip(stateDt_list,decideCnt_list,clearCnt_list,deathCnt_list,examCnt_list,careCnt_list,resnegCnt_list,accdefRate_list):       
