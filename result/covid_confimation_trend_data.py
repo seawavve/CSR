@@ -7,13 +7,18 @@ import requests
 
 '''
 기준일:stateDt (index)
-확진자수:decideCnt
-격리해제수:clearCnt
-사망자수:deathCnt
+누적확진자수:decideCnt
+누적격리해제수:clearCnt
+누적사망자수:deathCnt
 검사진행수:examCnt
 치료중환자수:careCnt
-결과음성수:resultNegCnt
+누적결과음성수:resultNegCnt
 누적확진률:accDefRate
+
+당일확진자수:decCnt
+당일격리해제수:clCnt
+당일사망자수:dthCnt
+당일결과음성수:rnCnt
 stateDt,decideCnt,clearCnt,deathCnt,examCnt,careCnt,resnegCnt,accdefRate
 '''
 
@@ -80,16 +85,40 @@ examCnt_list = sum(examCnt_list, [])
 careCnt_list = sum(careCnt_list, [])
 resnegCnt_list = sum(resnegCnt_list, [])
 accdefRate_list = sum(accdefRate_list, [])
-deathCnt_list=list(map(int,deathCnt_list))
+
+dthCnt_list=list(map(int,deathCnt_list))
+decCnt_list=list(map(int,decideCnt_list))
+clCnt_list=list(map(int,clearCnt_list))
+rnCnt_list=list(map(int,resnegCnt_list))
+'''
+당일확진자수:decCnt
+당일격리해제수:clCnt
+당일사망자수:dthCnt
+당일결과음성수:rnCnt
+'''
 #누적 제거
 for i in range(94):
-    deathCnt_list[i]-=deathCnt_list[i+1]
+    dthCnt_list[i]-=dthCnt_list[i+1]
+dthCnt_list[94]=0
+
+for i in range(94):
+    decCnt_list[i]-=decCnt_list[i+1]
+decCnt_list[94]=0
+for i in range(94):
+    rnCnt_list[i]-=rnCnt_list[i+1]
+rnCnt_list[94]=0
+for i in range(94):
+    clCnt_list[i]-=clCnt_list[i+1]
+clCnt_list[94]=0
 
 result=[]
-for stateDt,decideCnt,clearCnt,deathCnt,examCnt,careCnt,resnegCnt,accdefRate in zip(stateDt_list,decideCnt_list,clearCnt_list,deathCnt_list,examCnt_list,careCnt_list,resnegCnt_list,accdefRate_list):       
-    row_data=[stateDt,decideCnt,clearCnt,deathCnt,examCnt,careCnt,resnegCnt,accdefRate]
+for stateDt,decideCnt,clearCnt,deathCnt,examCnt,careCnt,resnegCnt,accdefRate,dthCnt,decCnt,rnCnt,clCnt in zip(stateDt_list,decideCnt_list,clearCnt_list,deathCnt_list,examCnt_list,careCnt_list,resnegCnt_list,accdefRate_list,dthCnt_list,decCnt_list,rnCnt_list,clCnt_list):       
+    row_data=[stateDt,decideCnt,clearCnt,deathCnt,examCnt,careCnt,resnegCnt,accdefRate,dthCnt,decCnt,rnCnt,clCnt]
     result.append(row_data)
 
-covid_df=pd.DataFrame(result,columns=['stateDt','decideCnt','clearCnt','deathCnt','examCnt','careCnt','resnegCnt','accdefRate']) 
+covid_df=pd.DataFrame(result,columns=['stateDt','decideCnt','clearCnt','deathCnt','examCnt','careCnt','resnegCnt','accdefRate','dthCnt','decCnt','enCnt','clCnt'])
+
+
+
 covid_df.to_csv('covid19_trend.csv')
 #display(covid_df)
