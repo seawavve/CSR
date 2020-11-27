@@ -119,3 +119,53 @@ Negative_Hist.to_csv("Negative_Keyword.csv", mode='w',encoding='utf-8')
 Moderative_Hist.to_csv("Moderative_Keyword.csv", mode='w',encoding='utf-8')
 dataset.to_csv("dataset_pos_neg.csv",mode='w',encoding='utf-8')
 dataset.to_csv("dataset_pos_neg(UTF-8-SIG).csv",mode='w',encoding='utf-8-sig')
+
+###데이터훈련
+import keras
+from keras.layers import Embedding,Dense,LSTM
+from keras.models import Sequential
+from keras.preprocessing.sequence import pad_sequences
+from sklearn.model_selection import train_test_split
+from keras.preprocessing.text import Tokenizer 
+
+max_len=2000
+
+data = pd.read_csv("./Keyword_Dataset/dataset_pos_neg.csv")
+
+X = data['키워드']
+Y = data['pos_neg']
+X_train = X[:1800]
+Y_train = Y[:1800]
+X_test  = X[1800:2000]
+Y_test  = Y[1800:2000]
+
+max_words = 35000 
+tokenizer = Tokenizer(num_words = max_words) 
+tokenizer.fit_on_texts(X_train) 
+X_train = tokenizer.texts_to_sequences(X_train) 
+X_test = tokenizer.texts_to_sequences(X_test)
+
+X_train=pad_sequences(X_train,maxlen=max_len)
+X_test=pad_sequences(X_test,maxlen=max_len)
+
+#model의 레이어,Hparameter,optimizer를 바꿔서 실험할 수 있음
+#학습그래프그리기
+#EarlyStopping,ModelCheckPoint기법 적용하기
+
+model=Sequential()
+model.add(Embedding(max_words,100))
+model.add(LSTM(128))
+model.add(Dense(1,activation='softmax'))
+
+model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+history=model.fit(X_train,Y_train,epochs=10,batch_size=10,validation_split=0.1) 
+#전체데이터에서 10%만 validation_data로 활용
+print('accuracy:{:.2f}'.format(model.evaluate(X_test,Y_test)[1]))
+
+
+# In[ ]:
+
+
+#+)
+import numpy as np
+
