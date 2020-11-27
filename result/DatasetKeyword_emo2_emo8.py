@@ -8,7 +8,7 @@
 # Run Time: min
 from tqdm import tqdm
 import pandas as pd
-
+import numpy as np
 raw_data = pd.read_csv('./NewsResult_20200806-20201106.csv',index_col=0)
 dataset = pd.DataFrame({'본문': raw_data['본문'],'키워드':raw_data['키워드']})
 dataset = dataset.reset_index(drop = True)
@@ -33,9 +33,14 @@ def clean_str(string):
   string=re.sub(r"\' ", "",string)
 
   return string.lower()
-
+#키워드 전처리
+for idx in dataset.index:
+    list_keyword = []
+    for j in dataset['키워드'][idx].split(','):
+        list_keyword.append(j)
+    dataset['키워드'][idx] = list_keyword
 #인덱스|본문 전처리
-for idx in contents.index:
+for idx in dataset.index:
     dataset['본문'][idx] = clean_str(dataset['본문'][idx])
 
 #긍부정키를 따로 나눔
@@ -56,15 +61,16 @@ okt=Okt()
 Hist = lex2.copy()
 Hist['Frequency'] = 0
 
-res=[0,0,0] #Positive,Negative,Moderative
+res =[0,0,0] #Positive,Negative,Moderative
 c = 0
 
+#키워드
 for i in tqdm(range(len(dataset))):   # 이거 잘 돌아가는지 확인 못함 안되면  range(len(dataset)) or range(20)이렇게 바꿔
     text=''
     text=dataset.loc[i,'키워드']
     pos=0
     neg=0
-    for j in text.split(','): #형태소가 사전과 일치하고 긍부정 중 1이 있으면 count
+    for j in text: #형태소가 사전과 일치하고 긍부정 중 1이 있으면 count
         c = 0 # 데이터가 제대로 count했는지 확인하는 부분
         if j in pos_keys:
             pos+=1
@@ -111,14 +117,12 @@ Moderative_Hist = Valid_Hist[ ~Positive_Hist_cheack & ~Negative_Hist_cheack]
 
 Positive_Hist = Positive_Hist.sort_values(by='Frequency',ascending=False)
 Negative_Hist = Negative_Hist.sort_values(by='Frequency',ascending=False)
-Moderative_Hist = Moderative_Hist.sort_values(by='Frequency',ascending=False)
 
-Valid_Hist.to_csv("Keyword.csv", mode='w',encoding='utf-8')
-Positive_Hist.to_csv("Positive_Keyword.csv", mode='w',encoding='utf-8')
-Negative_Hist.to_csv("Negative_Keyword.csv", mode='w',encoding='utf-8')
-Moderative_Hist.to_csv("Moderative_Keyword.csv", mode='w',encoding='utf-8')
-dataset.to_csv("dataset_pos_neg.csv",mode='w',encoding='utf-8')
-dataset.to_csv("dataset_pos_neg(UTF-8-SIG).csv",mode='w',encoding='utf-8-sig')
+Valid_Hist.to_csv("./Keyword_Dataset/Keyword.csv", mode='w',encoding='utf-8')
+Positive_Hist.to_csv("./Keyword_Dataset/Positive_Keyword.csv", mode='w',encoding='utf-8')
+Negative_Hist.to_csv("./Keyword_Dataset/Negative_Keyword.csv", mode='w',encoding='utf-8')
+dataset.to_csv("./Keyword_Dataset/dataset_pos_neg.csv",mode='w',encoding='utf-8')
+dataset.to_csv("./Keyword_Dataset/dataset_pos_neg(UTF-8-SIG).csv",mode='w',encoding='utf-8-sig')
 
 ###데이터훈련
 import keras
