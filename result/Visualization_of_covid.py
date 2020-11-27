@@ -36,7 +36,6 @@ plt.ylabel('Population')
 plt.title('Changes in the number of patients')
 plt.figure(figsize=(5,10))
 plt.show()
-plt.savefig('fig1.png')
 
 #그래프2
 y=list(Series(data['examCnt']))
@@ -48,4 +47,3 @@ plt.xlabel('Date')
 plt.ylabel('Population')
 plt.figure(figsize=(5,10))
 plt.show()
-plt.savefig('fig2.png')
