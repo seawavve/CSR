@@ -7,4 +7,5 @@
 - `DatasetKeyword_emo2_emo8.py`dataset에서 제공하는 키워드로 2감정,8감정 분석| 2감정 키워드 추출
 - `covid_confimation_trend_data.py`코로나 확진자 추이 크롤링  
  ㄴ 결과물`covid19_trend.csv`  
- - 코로나 확진자 추이 시각화  
+ - `Visualization_of_covid.py`코로나 확진자 추이 시각화  
+ ㄴ 결과물`fig1`,`fig2`
