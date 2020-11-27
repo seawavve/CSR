@@ -8,4 +8,3 @@
 - `covid_confimation_trend_data.py`코로나 확진자 추이 크롤링  
  ㄴ 결과물`covid19_trend.csv`  
  - `Visualization_of_covid.py`코로나 확진자 추이 시각화  
- ㄴ 결과물`fig1`,`fig2`
