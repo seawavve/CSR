@@ -10,14 +10,14 @@ print(data.columns)
 
 
 #그래프1
+
 date=list(Series(data['stateDt']))
 x_date=[]
 for i in range(len(date)):
     tmp=str(date[i])
     if i%5==0:x_date.append(tmp[4:6]+'.'+tmp[6:])
+
 x_date.reverse()
-
-
 x=range(95)
 y1=list(Series(data['decCnt']))
 y2=list(Series(data['clCnt']))
