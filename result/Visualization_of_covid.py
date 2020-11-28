@@ -18,6 +18,7 @@ for i in range(len(date)):
 x_date.reverse()
 
 
+x=range(95)
 y1=list(Series(data['decCnt']))
 y2=list(Series(data['clCnt']))
 y3=list(Series(data['dthCnt']))
