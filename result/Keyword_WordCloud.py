@@ -21,7 +21,7 @@ plt.imshow(wc,interpolation='bilinear')
 plt.axis('off')
 plt.show()
 
-#Positive WordCloud
+#Negative WordCloud
 import pandas as pd
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
