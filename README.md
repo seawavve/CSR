@@ -34,6 +34,14 @@
 Plotly, Matplot, Seaborn 라이브러리를 활용하여 확진자, 완치자, 치료중환자, 사망자 분포도를 그래프로 만듭니다. 감정 분석에 따른 Histogram 또는 Polar Chart로 시각화하여 한 해의 환자 추이를 그립니다.  
 한 시기에 특정 감정이 도드라지는 부분이 있다면 Word Cloud로 어떤 요인이 감정을 가장 크게 이끌어냈는지 파악하여 UI로 구성합니다.  
 
+# How to Run
+
+result
+
+`JVMNotFoundException: No JVM shared library file (libjli.dylib) found. Try setting up the JAVA_HOME environment variable properly.`
+JVM오류가 발생할 경우
+
+
 # Ending  
 윤리강령에 부합하여 이루어지는지 데이터 분석을 통해 살펴보았습니다. 편향적인 감정을 이끌어내는 '미끼단어'를 파악하여 많은 사람들이 인지할 수 있게 시각화했습니다. 객관성을 지키고 정당한 사실을 알리는 의무를 가진 언론의 공정보도 실천 사명을 강조하며 중립성을 지키도록 독려할 수 있겠습니다. 또, 시민에게 자료를 공개하여 자극적인 기사에 휘둘리지 않고 객관적인 시선을 가질 수 있도록 일깨우겠습니다.  
 
