@@ -55,6 +55,7 @@ Team 막강하니
  - 학습 아웃라인 구상
  - 학습 능률 개선(EarlyStopping, ModelCheckpoint)
  - 학습 시각화(epoch에 따른 Accuracy동향 그래프, loss동향 그래프, 네트워크 구조 그림)
+ - 긍부정 WordCloud
  
 막강 @mintai09
  - 2감정 키워드추출
