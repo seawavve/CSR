@@ -51,7 +51,7 @@ Team 막강하니
  - 아이디어 및 구상  
  - lexicon dataset 구성  
  - 2감정, 8감정 분석    
- - 공공API 웹크롤링
+ - 공공API 코로나 확진자 추이 크롤링 및 시각화
  - Github repo 관리
  - 학습 아웃라인 구상
  - 학습 능률 개선(EarlyStopping, ModelCheckpoint)
