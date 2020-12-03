@@ -9,3 +9,4 @@
  ㄴ 결과물`covid19_trend.csv`  
  - `Visualization_of_covid.py`코로나 확진자 추이 시각화  
  - `Keyword_WordCloud` 긍부정 키워드 워드클라우드
+ - `Slicing_by_date` 날짜별로 데이터 슬라이싱
