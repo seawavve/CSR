@@ -1,7 +1,7 @@
 # CSR
 <p align="center"><img src="TitleImg.png" width="500"></p>  
   
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  
 :bar_chart:Changes in media Sentiment according to coRona infection status      
 코로나 감염 현황에 따른 언론의 감정변동추이    
 \#DeepLearning\#NLP\#emotional analysis\#Web Crawling    
